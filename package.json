@@ -1,0 +1,19 @@
+{
+  "name": "combined-actor-info",
+  "version": "0.0.1",
+  "description": "Package for reading and parsing Zelda TotK CombinedActorInfo files",
+  "main": "./lib/index.js",
+  "scripts": {
+    "build": "tsc"
+  },
+  "author": "SuperSpazzy",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.4.2",
+    "@types/three": "^0.154.0",
+    "typescript": "^5.1.6"
+  },
+  "dependencies": {
+    "three": "^0.154.0"
+  }
+}

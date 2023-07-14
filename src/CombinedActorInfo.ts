@@ -15,11 +15,11 @@ export class CombinedActorInfo {
         this.unknownData = [];
     }
 
-    public static async FromArrayLike(arrayLike: Iterable<number>): Promise<CombinedActorInfo> {
+    public static FromArrayLike(arrayLike: Iterable<number>): CombinedActorInfo {
         return CombinedActorInfo.FromArrayBuffer(Uint8Array.from(arrayLike))
     }
 
-    public static async FromArrayBuffer(buffer: ArrayBufferLike): Promise<CombinedActorInfo> {
+    public static FromArrayBuffer(buffer: ArrayBufferLike): CombinedActorInfo {
 
         var cai = new CombinedActorInfo();
         const enc = new TextDecoder("utf-8");
@@ -67,7 +67,7 @@ export class CombinedActorInfo {
             actor.PrimaryMatrix = new ActorMatrix(primaryMatrix);
             actor.SecondaryMatrix = new ActorMatrix(secondaryMatrix);
             actor.TertiaryMatrix = tertiaryArray;
-            
+
             cai.actors.push(actor);
         }
 

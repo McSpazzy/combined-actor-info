@@ -6,7 +6,7 @@ export declare class CombinedActorInfo {
     boundingBox?: Box3;
     unknownData: number[];
     constructor();
-    static FromArrayLike(arrayLike: Iterable<number>): Promise<CombinedActorInfo>;
-    static FromArrayBuffer(buffer: ArrayBufferLike): Promise<CombinedActorInfo>;
+    static FromArrayLike(arrayLike: Iterable<number>): CombinedActorInfo;
+    static FromArrayBuffer(buffer: ArrayBufferLike): CombinedActorInfo;
     static ReadMatrix4X4(buffer: DataView, offset: number): Matrix4;
 }

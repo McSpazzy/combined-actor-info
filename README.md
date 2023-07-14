@@ -10,7 +10,8 @@ Ability to create coming soon
     import { CombinedActorInfo } from 'combined-actor-info';
     import fs from 'fs/promises';
 
-    var data = await fs.readFile('autobuild.cai');
-    var entry = await CombinedActorInfo.FromArrayBuffer(data.buffer);
-    console.log(JSON.stringify(entry, null, 4));
+    fs.readFile('C:\\Users\\Andy\\Desktop\\favorites plus working zero point flyer\\my_autobuilder_29.cai').then(data => {
+        var entry = CombinedActorInfo.FromArrayBuffer(data.buffer);
+        console.log(JSON.stringify(entry, null, 4));
+    });
 ```

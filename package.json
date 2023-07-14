@@ -15,5 +15,13 @@
   },
   "dependencies": {
     "three": "^0.154.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/McSpazzy/combined-actor-info.git"
+  },
+  "homepage": "https://github.com/McSpazzy/combined-actor-info",
+  "bugs": {
+    "url": "https://github.com/McSpazzy/combined-actor-info/issues"
   }
 }

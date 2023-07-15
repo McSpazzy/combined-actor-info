@@ -15,16 +15,25 @@ export class CombinedActorInfo {
         this.unknownData = [];
     }
 
+    public static FromJson(jsonString: string): CombinedActorInfo {
+        return JSON.parse(jsonString);
+    }
+
     public static FromArrayLike(arrayLike: Iterable<number>): CombinedActorInfo {
         return CombinedActorInfo.FromArrayBuffer(Uint8Array.from(arrayLike))
     }
 
     public static FromArrayBuffer(buffer: ArrayBufferLike): CombinedActorInfo {
 
-        var cai = new CombinedActorInfo();
         const enc = new TextDecoder("utf-8");
-
         var data = new DataView(buffer);
+
+        // Quick and dirty check for json input. Don't judge me. You don't know my life.
+        if (data.getUint8(0) === 123) {
+            return CombinedActorInfo.FromJson(enc.decode(buffer));
+        }
+
+        var cai = new CombinedActorInfo();
         var offset = 0;
 
         // Check for old totkab format and be sad about it.
@@ -35,8 +44,6 @@ export class CombinedActorInfo {
         // Validate magic
         if (enc.decode(new DataView(buffer, offset, 6)) !== "CmbAct") {
             throw new Error("Magic Mismatch. Invalid File");
-        } else {
-            console.log("File Read OK");
         }
 
         var offset = 9;
@@ -63,9 +70,7 @@ export class CombinedActorInfo {
                 name += String.fromCharCode(charCode);
             }
             offset += 128;
-            var actor = new Actor(name);
-            actor.PrimaryMatrix = new ActorMatrix(primaryMatrix);
-            actor.SecondaryMatrix = new ActorMatrix(secondaryMatrix);
+            var actor = new Actor(name, primaryMatrix, secondaryMatrix);
             actor.TertiaryMatrix = tertiaryArray;
 
             cai.actors.push(actor);
@@ -96,7 +101,6 @@ export class CombinedActorInfo {
         offset += 4;
         var zMin = data.getFloat32(offset, true);
         offset += 4;
-
         var xMax = data.getFloat32(offset, true);
         offset += 4;
         var yMax = data.getFloat32(offset, true);
@@ -104,7 +108,6 @@ export class CombinedActorInfo {
         var zMax = data.getFloat32(offset, true);
         offset += 4;
 
-        // Pretty sure its a bounding box or something similar
         cai.boundingBox = new Box3(new Vector3(xMin, yMin, zMin), new Vector3(xMax, yMax, zMax));
 
         // No idea what this data is. Ignoring for now.
@@ -148,5 +151,112 @@ export class CombinedActorInfo {
         const m = new Matrix4();
         m.set(r1, r2, r3, a4, r4, r5, r6, a3, r7, r8, r9, a2, t1, t2, t3, a1);
         return m;
+    }
+
+    public ToJson(pretty: boolean = true): string {
+        if (pretty) {
+            return JSON.stringify(this, null, 4)
+        } else {
+            return JSON.stringify(this)
+        }
+    }
+
+    public static ToArrayBuffer(cai: CombinedActorInfo): ArrayBufferLike {
+
+        const enc = new TextEncoder();
+        const arrayBuffer = new ArrayBuffer(6688);
+        const dataView = new DataView(arrayBuffer);
+        var offset = 0;
+
+        const magic = [67, 109, 98, 65, 99, 116]; // CmbAct
+        for (let i = 0; i < 6; i++) {
+            dataView.setUint8(i, magic[i]);
+        }
+        offset += 6;
+        dataView.setUint16(offset, 0, true);
+        offset += 2;
+        dataView.setUint8(offset, 2); // Version?
+        offset += 1;
+        dataView.setUint8(offset, cai.entryCount); // Version?
+        offset += 3;
+
+        cai.actors.forEach(a => {
+            var m1 = ActorMatrix.rebuildMatrix(a.PrimaryMatrix);
+            for (let index = 0; index < 16; index++) {
+                dataView.setFloat32(offset, m1.elements[index], true);
+                offset += 4;
+            }
+
+            var m2 = ActorMatrix.rebuildMatrix(a.SecondaryMatrix);
+            for (let index = 0; index < 16; index++) {
+                dataView.setFloat32(offset, m2.elements[index], true);
+                offset += 4;
+            }
+
+            for (let index = 0; index < 6; index++) {
+                dataView.setFloat32(offset, a.TertiaryMatrix[index], true);
+                offset += 4;
+            }
+            const paddedArray = new Uint8Array(128);
+            paddedArray.set(enc.encode(a.Name));
+            for (let index = 0; index < 128; index++) {
+                dataView.setUint8(offset, paddedArray[index]);
+                offset += 1;
+            }
+        });
+
+        /*
+        for (let index = 0; index < 21 - this.actors.length; index++) {
+            var newMatrix = new Matrix4();
+            var newTertiary = [0, 0, 1, 0, 1, 0];
+            for (let index = 0; index < 16; index++) {
+                dataView.setFloat32(offset, 0, true);
+                offset += 4;
+            }
+            for (let index = 0; index < 16; index++) {
+                dataView.setFloat32(offset, 0, true);
+                offset += 4;
+            }
+            for (let index = 0; index < 6; index++) {
+                dataView.setFloat32(offset, newTertiary[index], true);
+                offset += 4;
+            }
+            for (let index = 0; index < 128; index++) {
+                dataView.setUint8(offset, 0);
+                offset += 1;
+            }
+        }
+        */
+
+        offset = 0x1704;
+
+        cai.actors.forEach(a => {
+            dataView.setUint32(offset, a.Unknown1, true);
+            offset += 4;
+            dataView.setUint32(offset, a.Unknown2, true);
+            offset += 4;
+            dataView.setUint8(offset, a.BondStartIndex);
+            offset += 1;
+            dataView.setUint8(offset, a.BondEndIndex);
+            offset += 1;
+            dataView.setUint16(offset, a.State, true);
+        });
+
+        offset = 0x1800;
+        dataView.setFloat32(offset, cai.boundingBox?.min.x ?? 0, true);
+        offset += 4;
+        dataView.setFloat32(offset, cai.boundingBox?.min.y ?? 0, true);
+        offset += 4;
+        dataView.setFloat32(offset, cai.boundingBox?.min.z ?? 0, true);
+        offset += 4;
+        dataView.setFloat32(offset, cai.boundingBox?.max.x ?? 0, true);
+        offset += 4;
+        dataView.setFloat32(offset, cai.boundingBox?.max.y ?? 0, true);
+        offset += 4;
+        dataView.setFloat32(offset, cai.boundingBox?.max.z ?? 0, true);
+        offset += 4;
+        dataView.setUint8(offset, 1);
+
+        return arrayBuffer;
     }
 }

@@ -2,16 +2,28 @@
 
 ** Parses Zelda TotK cai/autobuild files **
 
-Ability to create coming soon
 
-** Example **
+## Example
+
+### Read
 
 ```js
-    import { CombinedActorInfo } from 'combined-actor-info';
-    import fs from 'fs/promises';
+import fs from 'fs';
+import { CombinedActorInfo } from '../src/index';
 
-    fs.readFile('C:\\Users\\Andy\\Desktop\\favorites plus working zero point flyer\\my_autobuilder_29.cai').then(data => {
-        var entry = CombinedActorInfo.FromArrayBuffer(data.buffer);
-        console.log(JSON.stringify(entry, null, 4));
-    });
+var data = fs.readFileSync('./test/test.cai');
+var act = CombinedActorInfo.FromArrayBuffer(data.buffer);
+console.log(act.ToJson(true));
+```
+
+### Write
+
+```js
+import fs from 'fs';
+import { CombinedActorInfo } from '../src/index';
+
+var data = fs.readFileSync('./test/test.json');
+var cbi = CombinedActorInfo.FromArrayBuffer(data.buffer);
+var dataArray = CombinedActorInfo.ToArrayBuffer(cbi);
+fs.writeFileSync('./test/testout.cai', new DataView(dataArray));
 ```

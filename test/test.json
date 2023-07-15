@@ -1,0 +1,219 @@
+{
+    "entryCount": 5,
+    "actors": [
+        {
+            "Name": "AsbObj_WoodWheel_A_01",
+            "PrimaryMatrix": {
+                "position": {
+                    "x": 0,
+                    "y": 0.59393310546875,
+                    "z": 0.004486083984375
+                },
+                "rotation": {
+                    "x": -179.95052015008412,
+                    "y": -57.42143839301552,
+                    "z": -0.3477624108136671
+                }
+            },
+            "SecondaryMatrix": {
+                "position": {
+                    "x": 0.59393310546875,
+                    "y": 0.004486083984375,
+                    "z": 0
+                },
+                "rotation": {
+                    "x": 90,
+                    "y": 0.3625358402052831,
+                    "z": 89.84580127263207
+                }
+            },
+            "TertiaryMatrix": [
+                0,
+                0,
+                1,
+                0,
+                1,
+                0
+            ],
+            "Unknown1": 0,
+            "Unknown2": 0,
+            "BondStartIndex": 3,
+            "BondEndIndex": 4,
+            "State": 0
+        },
+        {
+            "Name": "DgnObj_PropellerAndWind",
+            "PrimaryMatrix": {
+                "position": {
+                    "x": -0.00537109375,
+                    "y": 0.7362060546875,
+                    "z": -0.0051422119140625
+                },
+                "rotation": {
+                    "x": -2.830818059288123,
+                    "y": -78.03748236389225,
+                    "z": -3.7057583014852797
+                }
+            },
+            "SecondaryMatrix": {
+                "position": {
+                    "x": 0,
+                    "y": 0,
+                    "z": 0
+                },
+                "rotation": {
+                    "x": -90,
+                    "y": 0,
+                    "z": -90
+                }
+            },
+            "TertiaryMatrix": [
+                0,
+                0,
+                1,
+                0,
+                1,
+                0
+            ],
+            "Unknown1": 0,
+            "Unknown2": 1,
+            "BondStartIndex": 3,
+            "BondEndIndex": 0,
+            "State": 0
+        },
+        {
+            "Name": "Item_Enemy_225",
+            "PrimaryMatrix": {
+                "position": {
+                    "x": -0.037109375,
+                    "y": -0.437286376953125,
+                    "z": -0.040313720703125
+                },
+                "rotation": {
+                    "x": -88.43699296520231,
+                    "y": 2.2412874760161805,
+                    "z": -122.57307534363977
+                }
+            },
+            "SecondaryMatrix": {
+                "position": {
+                    "x": 0,
+                    "y": 0,
+                    "z": 0
+                },
+                "rotation": {
+                    "x": -90,
+                    "y": 0,
+                    "z": -90
+                }
+            },
+            "TertiaryMatrix": [
+                0,
+                0,
+                1,
+                0,
+                1,
+                0
+            ],
+            "Unknown1": 0,
+            "Unknown2": 0,
+            "BondStartIndex": 0,
+            "BondEndIndex": 1,
+            "State": 0
+        },
+        {
+            "Name": "SpObj_FastWheel_A_01",
+            "PrimaryMatrix": {
+                "position": {
+                    "x": -0.24169921875,
+                    "y": 0.03753662109375,
+                    "z": 0.14599609375
+                },
+                "rotation": {
+                    "x": 179.34676087750145,
+                    "y": -83.61306368907015,
+                    "z": 89.39327592874915
+                }
+            },
+            "SecondaryMatrix": {
+                "position": {
+                    "x": 0.03765869140625,
+                    "y": 0.2588043212890625,
+                    "z": 0
+                },
+                "rotation": {
+                    "x": 90,
+                    "y": -0.06106702538354638,
+                    "z": -179.96126427248288
+                }
+            },
+            "TertiaryMatrix": [
+                0,
+                0,
+                1,
+                0,
+                1,
+                0
+            ],
+            "Unknown1": 0,
+            "Unknown2": 0,
+            "BondStartIndex": 2,
+            "BondEndIndex": 0,
+            "State": 0
+        },
+        {
+            "Name": "SpObj_Pile_A_01",
+            "PrimaryMatrix": {
+                "position": {
+                    "x": -0.44677734375,
+                    "y": -0.8814697265625,
+                    "z": 1.8947906494140625
+                },
+                "rotation": {
+                    "x": 0,
+                    "y": -6.322025550212989,
+                    "z": 0
+                }
+            },
+            "SecondaryMatrix": {
+                "position": {
+                    "x": -0.88287353515625,
+                    "y": 1.8947906494140625,
+                    "z": 0
+                },
+                "rotation": {
+                    "x": -90,
+                    "y": 0,
+                    "z": -90
+                }
+            },
+            "TertiaryMatrix": [
+                0,
+                0,
+                1,
+                0,
+                1,
+                0
+            ],
+            "Unknown1": 0,
+            "Unknown2": 0,
+            "BondStartIndex": 0,
+            "BondEndIndex": 0,
+            "State": 0
+        }
+    ],
+    "boundingBox": {
+        "isBox3": true,
+        "min": {
+            "x": -2.6402459144592285,
+            "y": -1.51470947265625,
+            "z": -2.6403777599334717
+        },
+        "max": {
+            "x": 2.6393320560455322,
+            "y": 1.51470947265625,
+            "z": 2.640254497528076
+        }
+    },
+    "unknownData": []
+}

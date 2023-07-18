@@ -1,9 +1,11 @@
 {
+    "unknownVal": 4,
     "entryCount": 5,
     "actors": [
         {
             "Name": "AsbObj_WoodWheel_A_01",
-            "PrimaryMatrix": {
+            "SubName": "",
+            "Main": {
                 "position": {
                     "x": 0,
                     "y": 0.59393310546875,
@@ -15,26 +17,20 @@
                     "z": -0.3477624108136671
                 }
             },
-            "SecondaryMatrix": {
+            "Sub": {
                 "position": {
-                    "x": 0.59393310546875,
-                    "y": 0.004486083984375,
-                    "z": 0
+                    "x": 0,
+                    "y": 0.59393310546875,
+                    "z": 0.004486083984375
                 },
                 "rotation": {
-                    "x": 90,
-                    "y": 0.3625358402052831,
-                    "z": 89.84580127263207
+                    "x": -179.63579468879635,
+                    "y": 5.488103019102543,
+                    "z": -0.18903146894709463
                 }
             },
-            "TertiaryMatrix": [
-                0,
-                0,
-                1,
-                0,
-                1,
-                0
-            ],
+            "fuseInfo": 1,
+            "flag": 0,
             "Unknown1": 0,
             "Unknown2": 0,
             "BondStartIndex": 3,
@@ -43,7 +39,8 @@
         },
         {
             "Name": "DgnObj_PropellerAndWind",
-            "PrimaryMatrix": {
+            "SubName": "",
+            "Main": {
                 "position": {
                     "x": -0.00537109375,
                     "y": 0.7362060546875,
@@ -55,26 +52,8 @@
                     "z": -3.7057583014852797
                 }
             },
-            "SecondaryMatrix": {
-                "position": {
-                    "x": 0,
-                    "y": 0,
-                    "z": 0
-                },
-                "rotation": {
-                    "x": -90,
-                    "y": 0,
-                    "z": -90
-                }
-            },
-            "TertiaryMatrix": [
-                0,
-                0,
-                1,
-                0,
-                1,
-                0
-            ],
+            "fuseInfo": 1,
+            "flag": 0,
             "Unknown1": 0,
             "Unknown2": 1,
             "BondStartIndex": 3,
@@ -83,7 +62,8 @@
         },
         {
             "Name": "Item_Enemy_225",
-            "PrimaryMatrix": {
+            "SubName": "",
+            "Main": {
                 "position": {
                     "x": -0.037109375,
                     "y": -0.437286376953125,
@@ -95,26 +75,8 @@
                     "z": -122.57307534363977
                 }
             },
-            "SecondaryMatrix": {
-                "position": {
-                    "x": 0,
-                    "y": 0,
-                    "z": 0
-                },
-                "rotation": {
-                    "x": -90,
-                    "y": 0,
-                    "z": -90
-                }
-            },
-            "TertiaryMatrix": [
-                0,
-                0,
-                1,
-                0,
-                1,
-                0
-            ],
+            "fuseInfo": 1,
+            "flag": 0,
             "Unknown1": 0,
             "Unknown2": 0,
             "BondStartIndex": 0,
@@ -123,7 +85,8 @@
         },
         {
             "Name": "SpObj_FastWheel_A_01",
-            "PrimaryMatrix": {
+            "SubName": "",
+            "Main": {
                 "position": {
                     "x": -0.24169921875,
                     "y": 0.03753662109375,
@@ -135,26 +98,20 @@
                     "z": 89.39327592874915
                 }
             },
-            "SecondaryMatrix": {
+            "Sub": {
                 "position": {
-                    "x": 0.03765869140625,
-                    "y": 0.2588043212890625,
-                    "z": 0
+                    "x": -0.25439453125,
+                    "y": 0.03765869140625,
+                    "z": 0.2588043212890625
                 },
                 "rotation": {
-                    "x": 90,
-                    "y": -0.06106702538354638,
-                    "z": -179.96126427248288
+                    "x": 179.45241228122137,
+                    "y": -83.59702784979885,
+                    "z": 89.49465474505747
                 }
             },
-            "TertiaryMatrix": [
-                0,
-                0,
-                1,
-                0,
-                1,
-                0
-            ],
+            "fuseInfo": 1,
+            "flag": 0,
             "Unknown1": 0,
             "Unknown2": 0,
             "BondStartIndex": 2,
@@ -163,7 +120,8 @@
         },
         {
             "Name": "SpObj_Pile_A_01",
-            "PrimaryMatrix": {
+            "SubName": "",
+            "Main": {
                 "position": {
                     "x": -0.44677734375,
                     "y": -0.8814697265625,
@@ -175,26 +133,20 @@
                     "z": 0
                 }
             },
-            "SecondaryMatrix": {
+            "Sub": {
                 "position": {
-                    "x": -0.88287353515625,
-                    "y": 1.8947906494140625,
-                    "z": 0
+                    "x": -0.44677734375,
+                    "y": -0.88287353515625,
+                    "z": 1.8947906494140625
                 },
                 "rotation": {
-                    "x": -90,
-                    "y": 0,
-                    "z": -90
+                    "x": 0,
+                    "y": -6.322092552019924,
+                    "z": 0
                 }
             },
-            "TertiaryMatrix": [
-                0,
-                0,
-                1,
-                0,
-                1,
-                0
-            ],
+            "fuseInfo": 1,
+            "flag": 0,
             "Unknown1": 0,
             "Unknown2": 0,
             "BondStartIndex": 0,

@@ -1,33 +1,22 @@
-import { Euler, MathUtils, Matrix4, Quaternion, Vector3 } from 'three';
+import { Euler, MathUtils, Matrix4, Vector3 } from 'three';
 
 export class ActorMatrix {
-    public position: Vector3;
-    public rotation: Vector3;
-    public quaternion?: Quaternion;
-    public matrix?: Matrix4;
+    public position?: Vector3;
+    public rotation?: Vector3;
 
-    #matrix: Matrix4;
-
-    constructor(matrix: Matrix4) {
-        this.#matrix = matrix;
+    constructor(matrix: Matrix4) {       
         var radianRotation = new Vector3().setFromEuler(new Euler().setFromRotationMatrix(matrix));
-        this.rotation = new Vector3(this.radToDeg(radianRotation.x), this.radToDeg(radianRotation.y), this.radToDeg(radianRotation.z));
-        this.position = new Vector3(matrix.elements[3], matrix.elements[7], matrix.elements[11])
+        this.rotation = new Vector3(ActorMatrix.radToDeg(radianRotation.x), ActorMatrix.radToDeg(radianRotation.y), ActorMatrix.radToDeg(radianRotation.z));
+        this.position = new Vector3().setFromMatrixPosition(matrix);
     }
 
-    public static rebuildMatrix(actorMatrix: ActorMatrix): Matrix4 {
-        var euler = new Euler(MathUtils.degToRad(actorMatrix.rotation.x), MathUtils.degToRad(actorMatrix.rotation.y), MathUtils.degToRad(actorMatrix.rotation.z))
-        var newMatrix = new Matrix4();
-        newMatrix.makeRotationFromEuler(euler);
-        newMatrix.elements[3] = actorMatrix.position.x;
-        newMatrix.elements[7] = actorMatrix.position.y;
-        newMatrix.elements[11] = actorMatrix.position.z;
-        return newMatrix;
+    static Vector3DegToRad(vector3: Vector3): Vector3 {
+        return new Vector3(MathUtils.degToRad(vector3.x), MathUtils.degToRad(vector3.y), MathUtils.degToRad(vector3.z))
     }
 
     // This also rounds conversions to the nearest 0, 0.5, or integer value. if less than 0.001 off.
     // Since amounts that small are most likely due to float conversion bs
-    radToDeg(rad: number): number {
+    static radToDeg(rad: number): number {
 
         var float = MathUtils.radToDeg(rad);
 

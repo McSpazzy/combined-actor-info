@@ -1,6 +1,6 @@
 {
   "name": "combined-actor-info",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Package for reading and writing Zelda TotK CombinedActorInfo files",
   "main": "./lib/index.js",
   "scripts": {

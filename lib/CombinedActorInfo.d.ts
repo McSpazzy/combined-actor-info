@@ -18,6 +18,6 @@ export declare class CombinedActorInfo {
     static Vector3DegToRad(vector3: Vector3): Vector3;
     static Matrix4ToWritableArray(matrix4?: Matrix4): number[];
     static RebuildMatrix(actorMatrix: ActorMatrix): Matrix4;
-    static WriteMatrix(view: DataView, offset: number, matrix: Matrix4): void;
+    static WriteMatrix(view: DataView, offset: number, matrix?: Matrix4): void;
     static ToArrayBuffer(cai: CombinedActorInfo): ArrayBufferLike;
 }

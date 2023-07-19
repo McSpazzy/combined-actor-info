@@ -264,7 +264,7 @@ export class CombinedActorInfo {
         return matrix;
     }
 
-    public static WriteMatrix(view: DataView, offset: number, matrix: Matrix4) {
+    public static WriteMatrix(view: DataView, offset: number, matrix?: Matrix4) {
         var writeableMatrix = CombinedActorInfo.Matrix4ToWritableArray(matrix);
         for (let index = 0; index < 12; index++) {
             view.setFloat32(offset, writeableMatrix[index], true);
@@ -292,9 +292,9 @@ export class CombinedActorInfo {
 
             CombinedActorInfo.WriteMatrix(dataView, offset, CombinedActorInfo.RebuildMatrix(a.Main));
             offset += 48;
-            CombinedActorInfo.WriteMatrix(dataView, offset, CombinedActorInfo.RebuildMatrix(a.Main));
+            CombinedActorInfo.WriteMatrix(dataView, offset, a.Sub ? CombinedActorInfo.RebuildMatrix(a.Sub) : undefined);
             offset += 48;
-            CombinedActorInfo.WriteMatrix(dataView, offset, CombinedActorInfo.RebuildMatrix(a.Main));
+            CombinedActorInfo.WriteMatrix(dataView, offset, a.Sub2 ? CombinedActorInfo.RebuildMatrix(a.Sub2) : undefined);
             offset += 48;
 
             dataView.setFloat32(offset, a.fuseInfo, true);

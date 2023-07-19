@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.0.6] - 2023-07-19
+
+- Fix writing wrong matrix at positions 2 and 3
+
 ## [0.0.5] - 2023-07-19
 
 Updated the readme with some stuff

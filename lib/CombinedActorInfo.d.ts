@@ -1,12 +1,13 @@
 import { Box3, Matrix4, Vector3 } from 'three';
 import { Actor } from './Actor';
 import { ActorMatrix } from './ActorMatrix';
+import { Bond } from './Bond';
 export declare class CombinedActorInfo {
-    unknownVal: number;
-    entryCount: number;
+    #private;
     actors: Actor[];
-    boundingBox?: Box3;
-    unknownData: number[];
+    bonds: Bond[];
+    boundingBox: Box3;
+    unknownData?: number[];
     constructor();
     static FromSaveFileArrayBuffer(saveBuffer: ArrayBufferLike, index: number): CombinedActorInfo;
     static FromSaveFileArrayBuffer(saveBuffer: ArrayBufferLike, indexes: number[]): CombinedActorInfo[];

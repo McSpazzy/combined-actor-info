@@ -1,8 +1,7 @@
 {
-    "unknownVal": 4,
-    "entryCount": 5,
     "actors": [
         {
+            "Index": 0,
             "Name": "AsbObj_WoodWheel_A_01",
             "SubName": "",
             "Main": {
@@ -30,14 +29,10 @@
                 }
             },
             "fuseInfo": 1,
-            "flag": 0,
-            "Unknown1": 0,
-            "Unknown2": 0,
-            "BondStartIndex": 3,
-            "BondEndIndex": 4,
-            "State": 0
+            "flag": 0
         },
         {
+            "Index": 1,
             "Name": "DgnObj_PropellerAndWind",
             "SubName": "",
             "Main": {
@@ -53,14 +48,10 @@
                 }
             },
             "fuseInfo": 1,
-            "flag": 0,
-            "Unknown1": 0,
-            "Unknown2": 1,
-            "BondStartIndex": 3,
-            "BondEndIndex": 0,
-            "State": 0
+            "flag": 0
         },
         {
+            "Index": 2,
             "Name": "Item_Enemy_225",
             "SubName": "",
             "Main": {
@@ -76,14 +67,10 @@
                 }
             },
             "fuseInfo": 1,
-            "flag": 0,
-            "Unknown1": 0,
-            "Unknown2": 0,
-            "BondStartIndex": 0,
-            "BondEndIndex": 1,
-            "State": 0
+            "flag": 0
         },
         {
+            "Index": 3,
             "Name": "SpObj_FastWheel_A_01",
             "SubName": "",
             "Main": {
@@ -111,14 +98,10 @@
                 }
             },
             "fuseInfo": 1,
-            "flag": 0,
-            "Unknown1": 0,
-            "Unknown2": 0,
-            "BondStartIndex": 2,
-            "BondEndIndex": 0,
-            "State": 0
+            "flag": 0
         },
         {
+            "Index": 4,
             "Name": "SpObj_Pile_A_01",
             "SubName": "",
             "Main": {
@@ -146,12 +129,49 @@
                 }
             },
             "fuseInfo": 1,
-            "flag": 0,
-            "Unknown1": 0,
-            "Unknown2": 0,
-            "BondStartIndex": 0,
-            "BondEndIndex": 0,
-            "State": 0
+            "flag": 0
+        }
+    ],
+    "bonds": [
+        {
+            "Source": {
+                "Index": 3,
+                "Matrix": 0
+            },
+            "Target": {
+                "Index": 4,
+                "Matrix": 0
+            }
+        },
+        {
+            "Source": {
+                "Index": 3,
+                "Matrix": 0
+            },
+            "Target": {
+                "Index": 0,
+                "Matrix": 1
+            }
+        },
+        {
+            "Source": {
+                "Index": 0,
+                "Matrix": 0
+            },
+            "Target": {
+                "Index": 1,
+                "Matrix": 0
+            }
+        },
+        {
+            "Source": {
+                "Index": 2,
+                "Matrix": 0
+            },
+            "Target": {
+                "Index": 0,
+                "Matrix": 0
+            }
         }
     ],
     "boundingBox": {
@@ -166,6 +186,5 @@
             "y": 1.51470947265625,
             "z": 2.640254497528076
         }
-    },
-    "unknownData": []
+    }
 }

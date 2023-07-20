@@ -10,10 +10,6 @@ export class ActorMatrix {
         this.position = new Vector3().setFromMatrixPosition(matrix);
     }
 
-    static Vector3DegToRad(vector3: Vector3): Vector3 {
-        return new Vector3(MathUtils.degToRad(vector3.x), MathUtils.degToRad(vector3.y), MathUtils.degToRad(vector3.z))
-    }
-
     // This also rounds conversions to the nearest 0, 0.5, or integer value. if less than 0.001 off.
     // Since amounts that small are most likely due to float conversion bs
     static radToDeg(rad: number): number {

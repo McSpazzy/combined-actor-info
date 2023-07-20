@@ -1,20 +1,20 @@
 import { Box3, Euler, MathUtils, Matrix4, Quaternion, Vector3 } from 'three';
 import { Actor } from './Actor';
 import { ActorMatrix } from './ActorMatrix';
+import { Bond } from './Bond';
 
 export class CombinedActorInfo {
 
-    unknownVal: number;
-    entryCount: number;
-    actors: Actor[];
-    boundingBox?: Box3;
-    unknownData: number[]
+    #entryCount: number = 0;
+    #bondCount: number = 0;
+
+    actors: Actor[] = [];
+    bonds: Bond[] = [];
+    boundingBox: Box3 = new Box3(new Vector3(-1, -1, 1), new Vector3(1, 1, 1,));
+    unknownData?: number[];
 
     constructor() {
-        this.unknownVal = 0;
-        this.entryCount = 0;
-        this.actors = [];
-        this.unknownData = [];
+
     }
 
     public static FromSaveFileArrayBuffer(saveBuffer: ArrayBufferLike, index: number): CombinedActorInfo
@@ -58,7 +58,8 @@ export class CombinedActorInfo {
             offset += length;
         }
 
-        var cbi = values.map(v => this.FromArrayBuffer(actorArray[v - 1]));
+        var cbi = values.map((v, i) => this.FromArrayBuffer(actorArray[v - 1]));
+        console.log(index, cbi);
         if (!multiValue && cbi.length > 0) {
             return cbi[0];
         }
@@ -90,11 +91,11 @@ export class CombinedActorInfo {
         }
 
         var cai = new CombinedActorInfo();
-        cai.entryCount = data.getUint8(0x09);
-        cai.unknownVal = data.getUint16(0x0A, true);
+        cai.#entryCount = data.getUint8(0x09);
+        cai.#bondCount = data.getUint8(0x0A);
 
         var offset = 0x0C;
-        for (let index = 0; index < cai.entryCount; index++) {
+        for (let index = 0; index < cai.#entryCount; index++) {
 
             var primaryMatrix = CombinedActorInfo.ReadMatrix4X3(data, offset);
             offset += 48;
@@ -103,9 +104,9 @@ export class CombinedActorInfo {
             var tertiaryMatrix = CombinedActorInfo.ReadMatrix4X3(data, offset);
             offset += 48;
 
-            var extraOne = data.getFloat32(offset, true);
+            var fuseData = data.getFloat32(offset, true);
             offset += 4;
-            var extraTwo = data.getUint32(offset, true);
+            var flagData = data.getUint32(offset, true);
             offset += 4;
 
             var name = "";
@@ -124,32 +125,38 @@ export class CombinedActorInfo {
             var actor = new Actor(name, primaryMatrix, secondaryMatrix, tertiaryMatrix);
             actor.SubName = subComponent;
 
-            // Maybe
-            actor.fuseInfo = extraOne;
-            // Probably
-            actor.flag = extraTwo;
+            actor.Index = index;
+            actor.fuseInfo = fuseData;
+            actor.flag = flagData;
 
             cai.actors.push(actor);
         }
 
         // Skip Empty
-        offset += 280 * (21 - cai.entryCount);
+        offset += 280 * (21 - cai.#entryCount);
 
-        for (let index = 0; index < cai.entryCount; index++) {
-            cai.actors[index].Unknown1 = data.getUint32(offset, true);
+        for (let index = 0; index < cai.#bondCount; index++) {
+            var bond = new Bond();
+
+            var sourceMatrix = data.getUint32(offset, true);
             offset += 4;
-            cai.actors[index].Unknown2 = data.getUint32(offset, true);
+            var targetMatrix = data.getUint32(offset, true);
             offset += 4;
-            cai.actors[index].BondStartIndex = data.getUint8(offset);
+            var sourceIndex = data.getUint8(offset);
             offset += 1;
-            cai.actors[index].BondEndIndex = data.getUint8(offset);
-            offset += 1;
-            cai.actors[index].State = data.getUint16(offset);
-            offset += 2;
+            var targetIndex = data.getUint8(offset);
+            offset += 3;
+
+            bond.Source.Index = sourceIndex;
+            bond.Target.Index = targetIndex;
+            bond.Source.Matrix = sourceMatrix;
+            bond.Target.Matrix = targetMatrix;
+
+            cai.bonds.push(bond);
         }
 
         // Skip Empty
-        offset += 12 * (21 - cai.entryCount);
+        offset += 12 * (21 - cai.#bondCount);
 
         // Bounding Box
         var xMin = data.getFloat32(offset, true);
@@ -284,8 +291,8 @@ export class CombinedActorInfo {
         }
 
         dataView.setUint8(0x08, 2); // Version?
-        dataView.setUint8(0x09, cai.entryCount);
-        dataView.setUint16(0x0A, cai.unknownVal, true);
+        dataView.setUint8(0x09, cai.actors.length);
+        dataView.setUint8(0x0A, cai.bonds.length);
 
         var offset = 0x0C;
         cai.actors.forEach(a => {
@@ -337,16 +344,15 @@ export class CombinedActorInfo {
 
         offset = 0x1704;
 
-        cai.actors.forEach(a => {
-            dataView.setUint32(offset, a.Unknown1, true);
+        cai.bonds.forEach(a => {
+            dataView.setUint32(offset, a.Source.Matrix, true);
             offset += 4;
-            dataView.setUint32(offset, a.Unknown2, true);
+            dataView.setUint32(offset, a.Target.Matrix, true);
             offset += 4;
-            dataView.setUint8(offset, a.BondStartIndex);
+            dataView.setUint8(offset, a.Source.Index);
             offset += 1;
-            dataView.setUint8(offset, a.BondEndIndex);
+            dataView.setUint8(offset, a.Target.Index);
             offset += 1;
-            dataView.setUint16(offset, a.State, true);
             offset += 2;
         });
 

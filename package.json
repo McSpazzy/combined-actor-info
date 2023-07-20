@@ -1,12 +1,13 @@
 {
   "name": "combined-actor-info",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Package for reading and writing Zelda TotK CombinedActorInfo files",
   "main": "./lib/index.js",
   "scripts": {
     "build": "tsc",
-    "test-read": "ts-node ./test/testread.ts",
-    "test-write": "ts-node ./test/testwrite.ts"
+    "test-read": "ts-node ./test/testread.ts ./test/test.cai ./test/test.json",
+    "test-write": "ts-node ./test/testwrite.ts ./test/test.json ./test/testout.cai",
+    "test-save": "ts-node ./test/testSave.ts ./test/progress.sav 1"
   },
   "author": "SuperSpazzy",
   "license": "MIT",

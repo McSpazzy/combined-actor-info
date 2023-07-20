@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.0.7] - 2023-07-19
+
+It is now probably pretty close to 100% understanding of the file
+
+- Change structure according to new information
+
 ## [0.0.6] - 2023-07-19
 
 - Fix writing wrong matrix at positions 2 and 3

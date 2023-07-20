@@ -2,7 +2,6 @@
 
 ** Parses Zelda TotK cai/autobuild files **
 
-
 ## Example
 
 ### Read
@@ -40,13 +39,4 @@ fs.writeFileSync('./test/testout.cai', new DataView(dataArray));
 ```
 
 
-### Read
-
-```js
-import fs from 'fs';
-import { CombinedActorInfo } from '../src/index';
-
-var data = fs.readFileSync('./test/test.cai');
-var act = CombinedActorInfo.FromArrayBuffer(data.buffer);
-console.log(act.ToJson(true));
-```
+Special thanks to fuse_it_or_lose_it from The Hyrule Engineers Discord for doing a most of the testing grunt work.

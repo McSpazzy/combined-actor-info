@@ -1,5 +1,5 @@
-import { Matrix4 } from 'three';
 import { ActorMatrix } from './ActorMatrix';
+import { Matrix4 } from './threeish';
 export declare class Actor {
     Index: number;
     Name: string;

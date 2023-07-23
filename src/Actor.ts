@@ -1,5 +1,5 @@
-import { Matrix4 } from 'three';
 import { ActorMatrix } from './ActorMatrix';
+import { Matrix4 } from './threeish';
 
 export class Actor {
 

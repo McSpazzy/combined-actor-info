@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.1.0] - 2023-07-23
+
+Took the parts from threejs that were actually needed. namely the matrix and quaternion math. making for a much smaller bundle.
+
+- Removed threejs dependency
+
+- Add ability to export all cai from save file at once
+
+
 ## [0.0.7] - 2023-07-19
 
 It is now probably pretty close to 100% understanding of the file

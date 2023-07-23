@@ -1,4 +1,4 @@
-import { Box3, Euler, MathUtils, Matrix4, Quaternion, Vector3 } from 'three';
+import { Box3, Euler, Matrix4, Quaternion, Vector3 } from './threeish';
 import { Actor } from './Actor';
 import { ActorMatrix } from './ActorMatrix';
 import { Bond } from './Bond';
@@ -17,15 +17,13 @@ export class CombinedActorInfo {
 
     }
 
-    public static FromSaveFileArrayBuffer(saveBuffer: ArrayBufferLike, index: number): CombinedActorInfo
-    public static FromSaveFileArrayBuffer(saveBuffer: ArrayBufferLike, indexes: number[]): CombinedActorInfo[]
-    public static FromSaveFileArrayBuffer(saveBuffer: ArrayBufferLike, index: number | number[]): any {
+    public static FromSaveFileArrayBuffer(saveBuffer: ArrayBufferLike): CombinedActorInfo[];
+    public static FromSaveFileArrayBuffer(saveBuffer: ArrayBufferLike, index: number): CombinedActorInfo;
+    public static FromSaveFileArrayBuffer(saveBuffer: ArrayBufferLike, indexes: number[]): CombinedActorInfo[];
+    public static FromSaveFileArrayBuffer(saveBuffer: ArrayBufferLike, index: number | number[] | undefined = undefined): CombinedActorInfo | CombinedActorInfo[] {
 
         const cbiHash = 2774999734;
         const magic = 16909060;
-
-        var multiValue = Array.isArray(index);
-        var values = Array.isArray(index) ? [...index] : [index];
 
         var data = new DataView(saveBuffer);
 
@@ -58,13 +56,17 @@ export class CombinedActorInfo {
             offset += length;
         }
 
-        var cbi = values.map((v, i) => this.FromArrayBuffer(actorArray[v - 1]));
-        console.log(index, cbi);
-        if (!multiValue && cbi.length > 0) {
-            return cbi[0];
+        var cbaArray = actorArray.map(a => this.FromArrayBuffer(a));
+
+        if (!index) {
+            return cbaArray;
         }
 
-        return cbi;
+        if (Array.isArray(index)) {
+            return index.map((v) => cbaArray[v - 1]);
+        } else {
+            return cbaArray[index - 1];
+        }
     }
 
     public static FromJson(jsonString: string): CombinedActorInfo {
@@ -217,10 +219,6 @@ export class CombinedActorInfo {
         }
     }
 
-    static Vector3DegToRad(vector3: Vector3): Vector3 {
-        return new Vector3(MathUtils.degToRad(vector3.x), MathUtils.degToRad(vector3.y), MathUtils.degToRad(vector3.z))
-    }
-
     static Matrix4ToWritableArray(matrix4?: Matrix4): number[] {
 
         if (!matrix4) {
@@ -260,8 +258,8 @@ export class CombinedActorInfo {
 
     public static RebuildMatrix(actorMatrix: ActorMatrix): Matrix4 {
         var matrix = new Matrix4();
-        var rotationVector = CombinedActorInfo.Vector3DegToRad(actorMatrix.rotation ?? new Vector3());
-        var quaternion = new Quaternion().setFromEuler(new Euler(rotationVector.x, rotationVector.y, rotationVector.z, "XYZ"));
+        var rotationVector = actorMatrix.rotation?.degToRad() ?? new Vector3();
+        var quaternion = new Quaternion().setFromEuler(new Euler(rotationVector.x, rotationVector.y, rotationVector.z));
         matrix.makeRotationFromQuaternion(quaternion);
 
         if (actorMatrix.position) {

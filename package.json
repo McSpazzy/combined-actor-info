@@ -1,6 +1,6 @@
 {
   "name": "combined-actor-info",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Package for reading and writing Zelda TotK CombinedActorInfo files",
   "main": "./lib/index.js",
   "scripts": {
@@ -12,7 +12,7 @@
   "author": "SuperSpazzy",
   "license": "MIT",
   "devDependencies": {
-    "@types/node": "^20.4.2",
+    "@types/node": "^20.4.5",
     "ts-node": "^10.9.1",
     "typescript": "^5.1.6"
   },
@@ -23,5 +23,8 @@
   "homepage": "https://github.com/McSpazzy/combined-actor-info",
   "bugs": {
     "url": "https://github.com/McSpazzy/combined-actor-info/issues"
+  },
+  "dependencies": {
+    "fflate": "^0.8.0"
   }
 }

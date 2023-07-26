@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.1.1] - 2023-07-23
+
+- Add ability to convert to/from base64 strings for easy ...easiness.
+
+
 ## [0.1.0] - 2023-07-23
 
 Took the parts from threejs that were actually needed. namely the matrix and quaternion math. making for a much smaller bundle.

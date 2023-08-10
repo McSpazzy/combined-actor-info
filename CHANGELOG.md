@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.1.2] - 2023-07-23
+
+- Fix output order of autobuild from save file to match game index
+
+
 ## [0.1.1] - 2023-07-23
 
 - Add ability to convert to/from base64 strings for easy ...easiness.

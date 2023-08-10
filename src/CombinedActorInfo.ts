@@ -23,6 +23,8 @@ export class CombinedActorInfo {
     public static FromSaveFileArrayBuffer(saveBuffer: ArrayBufferLike, index: number | number[] | undefined = undefined): CombinedActorInfo | CombinedActorInfo[] {
 
         const cbiHash = 2774999734;
+        const cbiIndexHash = 3531572817;
+
         const magic = 16909060;
 
         var data = new DataView(saveBuffer);
@@ -34,38 +36,58 @@ export class CombinedActorInfo {
         var dataOffset = data.getUint32(0x8, true);
         var offset = 0x28;
 
+        var caiPosition = 0;
+        var caiIndexPosition = 0;
+
         while (offset < dataOffset) {
             var hash = data.getUint32(offset, true);
             offset += 4
             var cbiOffset = data.getUint32(offset, true);
             offset += 4
             if (hash === cbiHash) {
-                offset = cbiOffset;
+                caiPosition = cbiOffset;
+            }
+            if (hash === cbiIndexHash) {
+                caiIndexPosition = cbiOffset;
+            }
+
+            if (caiPosition > 0 && caiIndexPosition > 0) {
                 break;
             }
         }
 
-        var actorArray: ArrayBuffer[] = [];
-        var entryCount = data.getUint32(offset, true);
-        offset += 4;
-
-        for (let index = 0; index < entryCount; index++) {
-            var length = data.getUint32(offset, true);
-            offset += 4;
-            actorArray.push(saveBuffer.slice(offset, offset + length));
-            offset += length;
+        var entryPositionCount = data.getUint32(caiIndexPosition, true);
+        caiIndexPosition += 4;
+        var positionArray: number[] = [entryPositionCount];
+        for (let pIndex = 0; pIndex < entryPositionCount; pIndex++) {
+            positionArray[data.getUint32(caiIndexPosition + (pIndex * 4), true)] = pIndex;
         }
 
-        var cbaArray = actorArray.map(a => this.FromArrayBuffer(a));
+        var actorArray: ArrayBuffer[] = [];
+        var entryCount = data.getUint32(caiPosition, true);
+        caiPosition += 4;
+
+        for (let index = 0; index < entryCount; index++) {
+            var length = data.getUint32(caiPosition, true);
+            caiPosition += 4;
+            actorArray.push(saveBuffer.slice(caiPosition, caiPosition + length));
+            caiPosition += length;
+        }
+
+        var cbaArray = actorArray.map((a, i) => {
+            var cai = this.FromArrayBuffer(a);
+            return cai;
+        });
 
         if (!index) {
             return cbaArray;
         }
 
         if (Array.isArray(index)) {
-            return index.map((v) => cbaArray[v - 1]);
+            return index.map((v) => cbaArray[positionArray[v - 1]]);
         } else {
-            return cbaArray[index - 1];
+            console.log(positionArray[index - 1]);
+            return cbaArray[positionArray[index - 1]];
         }
     }
 
